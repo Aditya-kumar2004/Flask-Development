@@ -30,31 +30,61 @@
 
     {%  endblock %}
 
-<footer class="bg-dark text-light mt-5 py-4 shadow-lg">
+<footer class="bg-dark text-light mt-5 pt-5 pb-4 border-top border-primary border-3 shadow-lg">
     <div class="container">
-        <div class="row align-items-center justify-content-between">
-            <!-- Brand -->
-            <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-                <span class="fs-5 fw-bold bg-primary text-white px-2 py-1 rounded me-2">💼</span>
-                <span class="fw-semibold">EMS Portal</span>
+        <div class="row text-center text-md-start mb-4">
+            <!-- Column 1: About EMS -->
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <h5 class="fw-bold text-white mb-3 d-flex align-items-center justify-content-center justify-content-md-start gap-2">
+                    <span class="bg-primary px-2 py-1 rounded">💼</span> EMS Portal
+                </h5>
+                <p class="text-muted small pe-lg-4">
+                    A comprehensive employee directories platform providing seamless profile management, advanced search queries, dynamic multi-column sorting, and filtering systems.
+                </p>
+                <div class="d-flex gap-2 justify-content-center justify-content-md-start mt-3">
+                    <span class="badge bg-secondary bg-opacity-25 text-white">v1.2.0</span>
+                    <span class="badge bg-success bg-opacity-25 text-success">Secure</span>
+                </div>
             </div>
-            
-            <!-- Copyright -->
-            <div class="col-md-4 text-center mb-3 mb-md-0">
+
+            <!-- Column 2: Navigation Links -->
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <h6 class="text-uppercase fw-bold text-white mb-3">Quick Navigation</h6>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2">
+                        <a href="/home" class="text-muted text-decoration-none hover-white">🏠 Home Dashboard</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/department" class="text-muted text-decoration-none hover-white">🏢 Department Directory</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/employee/list" class="text-muted text-decoration-none hover-white">👥 Employee Registry</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/contact" class="text-muted text-decoration-none hover-white">📞 Get in Touch</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Contact Details -->
+            <div class="col-lg-4 col-md-12">
+                <h6 class="text-uppercase fw-bold text-white mb-3">Support Details</h6>
+                <p class="text-muted small mb-2">📧 support@emsportal.com</p>
+                <p class="text-muted small mb-2">📞 +1 (555) 019-2834</p>
+                <p class="text-muted small mb-0">📍 Silicon Valley HQ, California</p>
+            </div>
+        </div>
+
+        <!-- Divider line -->
+        <hr class="border-secondary my-4">
+
+        <!-- Copyright Row -->
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
                 <p class="mb-0 text-muted small">&copy; 2026 Employee Management System. All Rights Reserved.</p>
             </div>
-            
-            <!-- Quick Links -->
-            <div class="col-md-4 text-center text-md-end">
-                <div class="d-flex justify-content-center justify-content-md-end gap-3 small">
-                    <a href="/home" class="text-light text-decoration-none hover-opacity">Home</a>
-                    <span class="text-secondary">|</span>
-                    <a href="/department" class="text-light text-decoration-none hover-opacity">Department</a>
-                    <span class="text-secondary">|</span>
-                    <a href="/employee/list" class="text-light text-decoration-none hover-opacity">Employees</a>
-                    <span class="text-secondary">|</span>
-                    <a href="/contact" class="text-light text-decoration-none hover-opacity">Contact</a>
-                </div>
+            <div class="col-md-6 text-center text-md-end">
+                <span class="text-muted small">Designed for Flask & PEP Assignment</span>
             </div>
         </div>
     </div>
