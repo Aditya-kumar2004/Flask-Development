@@ -31,13 +31,19 @@ class Employee(db.Model):
         db.String(100),
         nullable = False
     )
+    role = db.Column(
+        db.String(50),
+        nullable = False,
+        default = "Employee"
+    )
 
-    def __init__(self, name, email, password, salary, department):
+    def __init__(self, name, email, password, salary, department, role="Employee"):
         self.name = name
         self.email = email
         self.password = password
         self.salary = salary
         self.department = department
+        self.role = role
 
     def __repr__(self):
         return f"Employee Name : {self.name}"

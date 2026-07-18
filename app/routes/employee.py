@@ -81,6 +81,9 @@ def employee_list():
 
 @employee_bp.route("/employee/add", methods=["POST", "GET"])
 def employeeAdd():
+    if session.get('user_role') != 'Admin':
+        flash("Access denied! Only administrators can perform this action.", "danger")
+        return redirect(url_for("employee.employee_list"))
 
     if request.method == "POST":
 
@@ -104,6 +107,10 @@ def employeeAdd():
 #to see full edit the detials of emlployee
 @employee_bp.route("/employee/employeeUpdate/<int:id>", methods=["GET", "POST"])
 def employeeUpdate(id):
+    if session.get('user_role') != 'Admin':
+        flash("Access denied! Only administrators can perform this action.", "danger")
+        return redirect(url_for("employee.employee_list"))
+
     employee = Employee.query.get_or_404(id)  
 
     if request.method == "POST":
@@ -127,6 +134,10 @@ def employeeDetails(id):
 # to delete an employee
 @employee_bp.route("/employee/employeeDelete/<int:id>")
 def employeeDelete(id):
+    if session.get('user_role') != 'Admin':
+        flash("Access denied! Only administrators can perform this action.", "danger")
+        return redirect(url_for("employee.employee_list"))
+
     employee = Employee.query.get_or_404(id)
     db.session.delete(employee)
     db.session.commit()
@@ -156,6 +167,7 @@ def register():
         password = request.form["password"]
         salary = float(request.form.get("salary") or 0)
         department = request.form["department"]
+        role = request.form.get("role", "Employee")
 
         # Prevent registering with an already existing email
         exists = Employee.query.filter_by(email=email).first()
@@ -169,7 +181,8 @@ def register():
             email=email,
             password=password,
             salary=salary,
-            department=department
+            department=department,
+            role=role
         )
         db.session.add(new_employee)
         db.session.commit()
@@ -200,6 +213,7 @@ def login():
         # Store logged-in user info in Flask Session
         session['user_id'] = employee.id
         session['user_name'] = employee.name
+        session['user_role'] = employee.role
 
         flash(f"Welcome back, {employee.name}!", "success")
         return redirect(url_for("home.home"))
@@ -212,6 +226,7 @@ def logout():
     # Clear the session state
     session.pop('user_id', None)
     session.pop('user_name', None)
+    session.pop('user_role', None)
     flash("You have been logged out.", "info")
     return redirect(url_for("employee.login"))
 
