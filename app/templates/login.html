@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow border-0 rounded-3">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-center mb-4">Account Login</h2>
+                    <form action="/employee/login" method="POST">
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Email Address</label>
+                            <input type="email" class="form-control py-2 shadow-sm" id="email" name="email" required placeholder="name@example.com">
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label fw-semibold">Password</label>
+                            <input type="password" class="form-control py-2 shadow-sm" id="password" name="password" required placeholder="••••••••">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill shadow-sm">Login</button>
+                    </form>
+                    <div class="text-center mt-4">
+                        <span class="text-muted small">Don't have an account? <a href="/employee/register" class="text-primary text-decoration-none">Register here</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

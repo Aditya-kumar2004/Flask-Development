@@ -1,4 +1,4 @@
-from flask import Blueprint,request,redirect,url_for,render_template,flash 
+from flask import Blueprint,request,redirect,url_for,render_template,flash,session
 
 from app.models.employee import Employee
 from app.models import db 
@@ -141,6 +141,79 @@ def contact():
         return redirect(url_for("employee.contact"))
     return render_template("contact.html")
 
+
+#Authentication Flow
+#Registration Route
+@employee_bp.route("/employee/register", methods=["GET", "POST"])
+def register():
+    # Redirect to home if user is already logged in
+    if session.get('user_id'):
+        return redirect(url_for('home.home'))
+
+    if request.method == "POST":
+        name = request.form["name"]
+        email = request.form["email"]
+        password = request.form["password"]
+        salary = float(request.form.get("salary") or 0)
+        department = request.form["department"]
+
+        # Prevent registering with an already existing email
+        exists = Employee.query.filter_by(email=email).first()
+        if exists:
+            flash("Email address is already registered!", "danger")
+            return redirect(url_for("employee.register"))
+
+        # Create a new Employee in the database
+        new_employee = Employee(
+            name=name,
+            email=email,
+            password=password,
+            salary=salary,
+            department=department
+        )
+        db.session.add(new_employee)
+        db.session.commit()
+
+        flash("Registration successful! Please login.", "success")
+        return redirect(url_for("employee.login"))
+
+    return render_template("register.html")
+
+#Login Route
+@employee_bp.route("/employee/login", methods=["GET", "POST"])
+def login():
+    # Redirect to home if user is already logged in
+    if session.get('user_id'):
+        return redirect(url_for('home.home'))
+
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        # Query database for matching email & password
+        employee = Employee.query.filter_by(email=email, password=password).first()
+        
+        if not employee:
+            flash("Invalid email or password!", "danger")
+            return redirect(url_for("employee.login"))
+
+        # Store logged-in user info in Flask Session
+        session['user_id'] = employee.id
+        session['user_name'] = employee.name
+
+        flash(f"Welcome back, {employee.name}!", "success")
+        return redirect(url_for("home.home"))
+
+    return render_template("login.html")
+
+#Logout Route
+@employee_bp.route("/employee/logout")
+def logout():
+    # Clear the session state
+    session.pop('user_id', None)
+    session.pop('user_name', None)
+    flash("You have been logged out.", "info")
+    return redirect(url_for("employee.login"))
 
 
 

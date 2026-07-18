@@ -34,9 +34,15 @@
 
             <!-- Authentication Actions -->
             <div class="d-flex align-items-center gap-3">
-                <a href="/employee/login" class="btn btn-link text-light text-decoration-none px-3">Login</a>
-                <a href="/employee/register" class="btn btn-success px-4 py-2 rounded-pill shadow-sm">Register</a>
+                {% if session.get('user_id') %}
+                    <span class="text-light me-2">Welcome, <strong>{{ session.get('user_name') }}</strong>!</span>
+                    <a href="/employee/logout" class="btn btn-outline-danger px-4 py-2 rounded-pill shadow-sm">Logout</a>
+                {% else %}
+                    <a href="/employee/login" class="btn btn-link text-light text-decoration-none px-3">Login</a>
+                    <a href="/employee/register" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">Register</a>
+                {% endif %}
             </div>
+            
         </div>
     </div>
 </nav>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0 rounded-3">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-center mb-4">Create Account</h2>
+                    <form action="/employee/register" method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-semibold">Full Name</label>
+                            <input type="text" class="form-control py-2 shadow-sm" id="name" name="name" required placeholder="John Doe">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Email Address</label>
+                            <input type="email" class="form-control py-2 shadow-sm" id="email" name="email" required placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label fw-semibold">Password</label>
+                            <input type="password" class="form-control py-2 shadow-sm" id="password" name="password" required placeholder="••••••••">
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label for="salary" class="form-label fw-semibold">Salary</label>
+                                <input type="number" class="form-control py-2 shadow-sm" id="salary" name="salary" required placeholder="50000">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="department" class="form-label fw-semibold">Department</label>
+                                <input type="text" class="form-control py-2 shadow-sm" id="department" name="department" required placeholder="IT">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 py-2 rounded-pill shadow-sm">Register</button>
+                    </form>
+                    <div class="text-center mt-4">
+                        <span class="text-muted small">Already have an account? <a href="/employee/login" class="text-primary text-decoration-none">Login here</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
