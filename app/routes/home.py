@@ -2,8 +2,12 @@
 
 from flask import Flask    # import 
 from flask import Blueprint # for declaring files as a routing
-from flask import render_template #
+from flask import render_template,redirect,url_for#
 home_bp = Blueprint("home",__name__)
+
+@home_bp.route("/")
+def index():
+    return redirect(url_for("home.home"))
 
 #rendering html home page
 @home_bp.route("/home")
