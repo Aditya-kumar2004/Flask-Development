@@ -117,8 +117,13 @@ def employeeUpdate(id):
         employee.name = request.form["name"]
         employee.email = request.form["email"]
         employee.department = request.form["department"]
-        employee.salary = request.form["salary"]
-        employee.password = request.form["password"]
+        employee.salary = float(request.form["salary"])
+        employee.role = request.form.get("role", "Employee")
+        
+        # Only update password if a new one is provided
+        new_password = request.form.get("password")
+        if new_password:
+            employee.password = new_password
 
         db.session.commit()
         return redirect(url_for("employee.employee_list"))

@@ -52,7 +52,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Monthly Payroll</h6>
-                            <h2 class="fw-bold mb-0">${{ "{:,.2f}".format(total_payroll) }}</h2>
+                            <h2 class="fw-bold mb-0">INR {{ "{:,.2f}".format(total_payroll) }}</h2>
                         </div>
                         <span class="fs-1 opacity-50">💰</span>
                     </div>
@@ -67,7 +67,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Average Salary</h6>
-                            <h2 class="fw-bold mb-0">${{ "{:,.2f}".format(avg_salary) }}</h2>
+                            <h2 class="fw-bold mb-0">INR {{ "{:,.2f}".format(avg_salary) }}</h2>
                         </div>
                         <span class="fs-1 opacity-50">📊</span>
                     </div>
@@ -102,7 +102,7 @@
                                         <tr>
                                             <td class="fw-semibold">{{ emp.name }}</td>
                                             <td><span class="badge bg-secondary bg-opacity-10 text-secondary">{{ emp.department }}</span></td>
-                                            <td>${{ "{:,.2f}".format(emp.salary) }}</td>
+                                            <td>INR {{ "{:,.2f}".format(emp.salary) }}</td>
                                             <td>{{ emp.email }}</td>
                                             <td>
                                                 <span class="badge {% if emp.role == 'Admin' %}bg-primary{% else %}bg-light text-dark border{% endif %} small">
