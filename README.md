@@ -82,4 +82,4 @@ Start the Flask development server:
 python app.py
 ```
 
-Open your browser and navigate to `http://127.0.0.1:5000/employee/list`.
+Open your browser and navigate to `http://127.0.0.1:5000/` (which will redirect you to the home dashboard `/home`).
