@@ -16,5 +16,17 @@ h1{
 }
 
 .hover-white:hover {
+    color: #0d6efd !important;
+}
+
+.custom-footer {
+    background-color: #000000 !important;
+}
+
+.custom-footer p, 
+.custom-footer span, 
+.custom-footer a,
+.custom-footer h5,
+.custom-footer h6 {
     color: #ffffff !important;
 }
