@@ -1,4 +1,4 @@
-from flask import Blueprint,request,redirect,url_for,render_template 
+from flask import Blueprint,request,redirect,url_for,render_template,flash 
 
 from app.models.employee import Employee
 from app.models import db 
@@ -132,6 +132,16 @@ def employeeDelete(id):
     db.session.commit()
 
     return redirect(url_for("employee.employee_list"))
+
+    #contact    
+@employee_bp.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        flash("Thank you for reaching out! Your message has been received.", "success")
+        return redirect(url_for("employee.contact"))
+    return render_template("contact.html")
+
+
 
 
 
