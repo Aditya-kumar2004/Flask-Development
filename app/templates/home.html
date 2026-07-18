@@ -17,14 +17,14 @@
     <div class="row mb-4">
         <!-- Total Employees -->
         <div class="col-md-3 mb-3 mb-md-0">
-            <div class="card bg-gradient-primary text-white border-0 shadow rounded-3 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
+            <div class="card bg-white border-0 border-start border-primary border-4 shadow-sm rounded-3 h-100">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Total Employees</h6>
-                            <h2 class="fw-bold mb-0">{{ total_employees }}</h2>
+                            <h6 class="text-uppercase fw-semibold text-muted small mb-2">Total Employees</h6>
+                            <h2 class="fw-bold text-dark mb-0">{{ total_employees }}</h2>
                         </div>
-                        <span class="fs-1 opacity-50">👥</span>
+                        <span class="fs-2 text-primary bg-primary bg-opacity-10 px-3 py-2 rounded-circle">👥</span>
                     </div>
                 </div>
             </div>
@@ -32,14 +32,14 @@
 
         <!-- Total Departments -->
         <div class="col-md-3 mb-3 mb-md-0">
-            <div class="card bg-gradient-success text-white border-0 shadow rounded-3 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #198754, #146c43);">
+            <div class="card bg-white border-0 border-start border-success border-4 shadow-sm rounded-3 h-100">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Departments</h6>
-                            <h2 class="fw-bold mb-0">{{ total_departments }}</h2>
+                            <h6 class="text-uppercase fw-semibold text-muted small mb-2">Departments</h6>
+                            <h2 class="fw-bold text-dark mb-0">{{ total_departments }}</h2>
                         </div>
-                        <span class="fs-1 opacity-50">🏢</span>
+                        <span class="fs-2 text-success bg-success bg-opacity-10 px-3 py-2 rounded-circle">🏢</span>
                     </div>
                 </div>
             </div>
@@ -47,14 +47,14 @@
 
         <!-- Total Payroll -->
         <div class="col-md-3 mb-3 mb-md-0">
-            <div class="card bg-gradient-warning text-white border-0 shadow rounded-3 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #fd7e14, #d96302);">
+            <div class="card bg-white border-0 border-start border-warning border-4 shadow-sm rounded-3 h-100">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Monthly Payroll</h6>
-                            <h2 class="fw-bold mb-0">INR {{ "{:,.2f}".format(total_payroll) }}</h2>
+                            <h6 class="text-uppercase fw-semibold text-muted small mb-2">Monthly Payroll</h6>
+                            <h2 class="fw-bold text-dark mb-0">INR {{ "{:,.2f}".format(total_payroll) }}</h2>
                         </div>
-                        <span class="fs-1 opacity-50">💰</span>
+                        <span class="fs-2 text-warning bg-warning bg-opacity-10 px-3 py-2 rounded-circle">💰</span>
                     </div>
                 </div>
             </div>
@@ -62,14 +62,14 @@
 
         <!-- Average Salary -->
         <div class="col-md-3">
-            <div class="card bg-gradient-info text-white border-0 shadow rounded-3 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0dcaf0, #0aa2c0);">
+            <div class="card bg-white border-0 border-start border-info border-4 shadow-sm rounded-3 h-100">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Average Salary</h6>
-                            <h2 class="fw-bold mb-0">INR {{ "{:,.2f}".format(avg_salary) }}</h2>
+                            <h6 class="text-uppercase fw-semibold text-muted small mb-2">Average Salary</h6>
+                            <h2 class="fw-bold text-dark mb-0">INR {{ "{:,.2f}".format(avg_salary) }}</h2>
                         </div>
-                        <span class="fs-1 opacity-50">📊</span>
+                        <span class="fs-2 text-info bg-info bg-opacity-10 px-3 py-2 rounded-circle">📊</span>
                     </div>
                 </div>
             </div>

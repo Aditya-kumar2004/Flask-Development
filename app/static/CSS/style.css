@@ -1,14 +1,13 @@
-body{
-    background:yellow;
+body {
+    background-color: #f4f6f9;
 }
 
-table{
-    border:1px;
-    border-color:black;
+table {
+    border: 1px solid #dee2e6;
 }
 
-h1{
-    color:red;
+h1 {
+    color: #212529;
 }
 
 .hover-white {
@@ -16,7 +15,7 @@ h1{
 }
 
 .hover-white:hover {
-    color: #0d6efd !important;
+    color: #11fd0d !important;
 }
 
 .custom-footer {
@@ -38,4 +37,25 @@ h1{
 .hover-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 1rem 3rem rgba(0,0,0,0.175) !important;
+}
+
+.custom-navbar {
+    background-color: #000000 !important;
+}
+
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand,
+.custom-navbar .btn-link,
+.custom-navbar span {
+    color: #ffffff !important;
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .btn-link:hover {
+    color: #49f465 !important;
+}
+
+.custom-navbar .nav-link.active {
+    font-weight: bold;
+    color: #cefa57 !important;
 }
