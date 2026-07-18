@@ -1,12 +1,161 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-<h2 class="mb-2">Dashboard</h2>
-    <div class="container">
-
+<div class="container my-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold mb-0">System Dashboard</h1>
+            <p class="text-muted mb-0">Welcome back, <strong>{{ session.get('user_name', 'Guest') }}</strong>! Here is your organization summary.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <span class="badge bg-primary px-3 py-2 rounded-pill fs-6">{{ session.get('user_role', 'Visitor') }} Portal</span>
+        </div>
     </div>
-    <!-- <h1>Home page of template</h1>
-    <h1>{{name}}</h1> -->
-    
-{% endblock %}
+
+    <!-- Metrics Cards Row -->
+    <div class="row mb-4">
+        <!-- Total Employees -->
+        <div class="col-md-3 mb-3 mb-md-0">
+            <div class="card bg-gradient-primary text-white border-0 shadow rounded-3 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Total Employees</h6>
+                            <h2 class="fw-bold mb-0">{{ total_employees }}</h2>
+                        </div>
+                        <span class="fs-1 opacity-50">👥</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Departments -->
+        <div class="col-md-3 mb-3 mb-md-0">
+            <div class="card bg-gradient-success text-white border-0 shadow rounded-3 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #198754, #146c43);">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Departments</h6>
+                            <h2 class="fw-bold mb-0">{{ total_departments }}</h2>
+                        </div>
+                        <span class="fs-1 opacity-50">🏢</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Payroll -->
+        <div class="col-md-3 mb-3 mb-md-0">
+            <div class="card bg-gradient-warning text-white border-0 shadow rounded-3 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #fd7e14, #d96302);">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Monthly Payroll</h6>
+                            <h2 class="fw-bold mb-0">${{ "{:,.2f}".format(total_payroll) }}</h2>
+                        </div>
+                        <span class="fs-1 opacity-50">💰</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Salary -->
+        <div class="col-md-3">
+            <div class="card bg-gradient-info text-white border-0 shadow rounded-3 h-100 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0dcaf0, #0aa2c0);">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase fw-semibold text-white-50 small mb-2">Average Salary</h6>
+                            <h2 class="fw-bold mb-0">${{ "{:,.2f}".format(avg_salary) }}</h2>
+                        </div>
+                        <span class="fs-1 opacity-50">📊</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="row">
+        <!-- Column 1: Recent Hires Table -->
+        <div class="col-lg-8 mb-4 mb-lg-0">
+            <div class="card shadow border-0 rounded-3 h-100">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                        <span>✨</span> Newly Added Employees
+                    </h5>
+                    {% if recent_employees %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Salary</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for emp in recent_employees %}
+                                        <tr>
+                                            <td class="fw-semibold">{{ emp.name }}</td>
+                                            <td><span class="badge bg-secondary bg-opacity-10 text-secondary">{{ emp.department }}</span></td>
+                                            <td>${{ "{:,.2f}".format(emp.salary) }}</td>
+                                            <td>{{ emp.email }}</td>
+                                            <td>
+                                                <span class="badge {% if emp.role == 'Admin' %}bg-primary{% else %}bg-light text-dark border{% endif %} small">
+                                                    {{ emp.role }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted my-3">No recent hires registered yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Column 2: Quick Actions & Help -->
+        <div class="col-lg-4">
+            <div class="card shadow border-0 rounded-3 h-100">
+                <div class="card-body p-4 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="fw-bold mb-4 d-flex align-items-center gap-2">
+                            <span>🚀</span> Quick Shortcuts
+                        </h5>
+                        <div class="d-grid gap-3">
+                            <a href="/employee/list" class="btn btn-outline-primary py-2 text-start d-flex align-items-center justify-content-between">
+                                <span>👥 View Employee Directory</span>
+                                <span>➡️</span>
+                            </a>
+                            <a href="/department" class="btn btn-outline-success py-2 text-start d-flex align-items-center justify-content-between">
+                                <span>🏢 Manage Departments</span>
+                                <span>➡️</span>
+                            </a>
+                            {% if session.get('user_role') == 'Admin' %}
+                                <a href="/employee/add" class="btn btn-outline-warning py-2 text-start d-flex align-items-center justify-content-between text-dark">
+                                    <span>➕ Add New Employee</span>
+                                    <span>➡️</span>
+                                </a>
+                            {% endif %}
+                            <a href="/contact" class="btn btn-outline-dark py-2 text-start d-flex align-items-center justify-content-between">
+                                <span>📞 Contact Support Team</span>
+                                <span>➡️</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 pt-3 border-top border-light">
+                        <p class="text-muted small mb-0">System updates are managed automatically. For queries, contact database administrators.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
