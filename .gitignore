@@ -1,0 +1,11 @@
+myvenv/
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*.pyc
+instance/
+.idea/
+.vscode/
+*.db
+*.sqlite
+*.log

@@ -1,0 +1,143 @@
+from flask import Blueprint,request,redirect,url_for,render_template 
+
+from app.models.employee import Employee
+from app.models import db 
+
+employee_bp = Blueprint("employee",__name__)
+employee_addlist = []   #added becausee when wee are enetering data in form then thiss data will store in thee aray
+
+@employee_bp.route("/employeeDepartment")
+def goToDeparmentpage():
+    return redirect(url_for("department.departmentHome"))
+
+
+
+@employee_bp.route("/employee/list")
+def employee_list():
+    # for the page number we use thiss command's 
+    page = request.args.get('page', 1, type=int)
+    #added the searching functionality
+    search_query = request.args.get('search', '', type=str)
+    #added the sorting functionality
+    sort_by = request.args.get('sort', 'id', type=str)
+    direction = request.args.get('direction', 'asc', type=str)
+
+    # added the filtering functionality
+    dept_filter = request.args.get('department', '', type=str)
+    min_salary = request.args.get('min_salary', None, type=float)
+    max_salary = request.args.get('max_salary', None, type=float)
+
+    per_page = 5
+    #building query for the pagination
+    query = Employee.query
+    #If there is a search query, filter by Name, Email, or Department
+    if search_query:
+        query = query.filter(
+            (Employee.name.like(f"%{search_query}%")) |
+            (Employee.email.like(f"%{search_query}%")) |
+            (Employee.department.like(f"%{search_query}%"))
+        )
+
+    # Apply department and salary range filters
+    if dept_filter:
+        query = query.filter(Employee.department == dept_filter)
+    if min_salary is not None:
+        query = query.filter(Employee.salary >= min_salary)
+    if max_salary is not None:
+        query = query.filter(Employee.salary <= max_salary)
+
+    #added the sorting functionality
+    sort_columns = {
+        'id': Employee.id,
+        'name': Employee.name,
+        'email': Employee.email,
+        'department': Employee.department,
+        'salary': Employee.salary
+    }
+    #for the sorting of the employees
+    sort_column = sort_columns.get(sort_by, Employee.id)
+
+    #Add sorting to the query
+    if direction == 'desc':
+        query = query.order_by(sort_column.desc())
+    else:
+        query = query.order_by(sort_column)
+    
+    # Get all unique departments for the filter dropdown
+    distinct_depts = db.session.query(Employee.department).distinct().all()
+    departments = [dept[0] for dept in distinct_depts if dept[0]]
+
+    #applying the pagination
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+
+    #sending to the frontend for the display of the employees data
+    return render_template(
+        "employee.html",
+        employees=pagination.items,
+        pagination=pagination,
+        departments=departments
+    )
+
+
+@employee_bp.route("/employee/add", methods=["POST", "GET"])
+def employeeAdd():
+
+    if request.method == "POST":
+
+        employee = Employee(
+            name=request.form["name"],
+            email=request.form["email"],
+            password=request.form["password"],
+            salary=float(request.form["salary"]),
+            department=request.form["department"]
+        )
+
+        # creating database query
+        db.session.add(employee)
+        # run the query
+        db.session.commit()
+
+        return redirect(url_for("employee.employee_list"))
+
+    return render_template("add_employee.html")
+
+#to see full edit the detials of emlployee
+@employee_bp.route("/employee/employeeUpdate/<int:id>", methods=["GET", "POST"])
+def employeeUpdate(id):
+    employee = Employee.query.get_or_404(id)  
+
+    if request.method == "POST":
+        employee.name = request.form["name"]
+        employee.email = request.form["email"]
+        employee.department = request.form["department"]
+        employee.salary = request.form["salary"]
+        employee.password = request.form["password"]
+
+        db.session.commit()
+        return redirect(url_for("employee.employee_list"))
+
+    return render_template("edit_employee.html", employee=employee)
+
+# to see full details of employee
+@employee_bp.route("/employee/employeeDetails/<int:id>")
+def employeeDetails(id):
+    employee = Employee.query.get_or_404(id)
+    return render_template("employee_detail.html", employee=employee)
+
+# to delete an employee
+@employee_bp.route("/employee/employeeDelete/<int:id>")
+def employeeDelete(id):
+    employee = Employee.query.get_or_404(id)
+    db.session.delete(employee)
+    db.session.commit()
+
+    return redirect(url_for("employee.employee_list"))
+
+
+
+#thiss all come unde the advane CRUD operation
+# funtcionalitis like 
+#pagination 
+#sorting 
+#filtering
+#serching

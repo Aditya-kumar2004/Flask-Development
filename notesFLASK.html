@@ -1,0 +1,88 @@
+1St lecture theory notes
+
+We use gjango for building:
+        - Enterprise application - large number of users
+        - when we need prebuild libraries
+        -when we need prebuild admin portal
+
+
+problem:
+Suppose a client coime with a requiremnet of a lightweight application
+  - Note Taking app
+  -Specific client app(resutant,ems)
+
+
+Solution: 
+We can use flask to build small scale application
+Itonly provide the libraries by which we can build system from  Scractch
+
+What is flask:- Flask is lightweight backedn framework by which we can build API,REST APIs and also is is very flexible 
+                and aslo we can integrate any database  but django is more confotable with postgreshsql 
+                and flask is aslo good for microservices 
+
+TECHINCAL TERMS:-
+
+WSGI:web server gateway interface
+It acts as a bridege between flask app and webserver Without it application cannot communicate with server
+
+werkzeug:- ON which whole flask libraries build 
+            This is a toolkit on  which flask is build
+
+            It provide:- 1)URL routing
+                        2) Request handling
+                        3)REsponse Object
+                        4)Debugger
+                        5)Development server
+
+                        We don't use werkzeug direcly in flask app andd the development 
+                        it handled flask itself/internally it handled by it.
+
+jinja2:- it is a flask template engine
+
+1st:- create a virtual environment :- python -m venv myvenv
+2nd:- Activate virtual environment:- myvenv\Scripts\activate
+3rd:- install flask :- pip install flask
+4th:- make a project folder then
+5th:- and in that folder  install requirements.txt:= pip freeze > requirements.txt
+6th:- app.py:- This is main file make this file
+7th:-Config.py:- THis file contains URL, API, SecreatKey, Database Url
+8th:- then make route folder,models folder, then template forlder for html,and make static folder for CSS and JS
+         and then make utils folder and in (model,utils,route make a file with name __init__.py)
+
+
+
+
+1)For ORM (Object Relational Mapping) we will install:pip install flask-sqlalchemy
+2)To migrate database we need to install:pip install flask-migrate
+  What is ORM?
+    - ORM converts Python objects into database records
+    - We don't write SQL queries directly
+    - Flask-SQLAlchemy provides ORM for Flask
+  What is Flask-Migrate?
+    - Manages database migrations (schema changes)
+    - Tracks database version history
+    - Creates migration files automatically
+
+1)The database will use app.py after running this command :-set FLASK_APP = app.py 
+  then we will initialize it by this command: flask db init (creates migrations folder)
+  and then we will migrate with this command :-flask db migrate -m "Initial migration" (creates a migration file)
+  and finally we will upgrade the database with this command :-flask db upgrade (applies migration to database)
+
+Why we do this:
+- set FLASK_APP = app.py: Tells Flask which file is the main app file
+- flask db init: Creates migrations folder to track database changes
+- flask db migrate -m "Initial migration": Creates a migration file that shows what changes need to be made to database schema
+- flask db upgrade: Applies those changes to the actual database
+
+
+// DATABASE (MySQL Community) connections
+
+1)mysql pymysql URL: type on Google to find the URL.
+  The format is:mysql+pymysql://username:password@host:port/database_name
+
+1) then we have to do changes according to our setup :- "mysql+pymysql://root:Adi12345@localhost:3306/employee_db"
+2)then we have to install the database:- by using thiss coomand :-pip install pymysql
+3)then if there iss migration file we will delete it and then we will run these 3 common commands step by step:
+   - flask db init
+   - flask db migrate -m "Initial migration"
+   - flask db upgrade

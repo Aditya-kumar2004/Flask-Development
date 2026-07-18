@@ -1,0 +1,45 @@
+
+from app.models import db
+    
+class Employee(db.Model):
+    
+    __tablename__ = "employees"           #if we wantt to hange a table  anem
+
+    id = db.Column(
+        db.Integer,                      #thiss  all aree thee attribute
+        primary_key = True
+    )
+
+    name = db.Column(                   #thiss aree thee attribute
+        db.String(100),
+        nullable = False
+    )
+    email = db.Column(                          #thiss aree thee attribute
+        db.String(100),
+        unique = True,
+        nullable = False
+    )
+    password = db.Column(                      #thiss aree thee attribute
+        db.String(50),
+        nullable = False
+    )
+    salary = db.Column(                      #thiss aree thee attribute
+        db.Float,
+        nullable = False
+    )
+    department = db.Column(                      #thiss aree thee attribute
+        db.String(100),
+        nullable = False
+    )
+
+    def __init__(self, name, email, password, salary, department):
+        self.name = name
+        self.email = email
+        self.password = password
+        self.salary = salary
+        self.department = department
+
+    def __repr__(self):
+        return f"Employee Name : {self.name}"
+
+    
