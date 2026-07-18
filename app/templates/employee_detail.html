@@ -1,30 +1,79 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-header">
-            <h3>Employee Details</h3>
-        </div>
-        <div class="card-body">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
             {% if employee %}
-            <dl class="row">
-                <dt class="col-sm-3">Name</dt>
-                <dd class="col-sm-9">{{ employee.name }}</dd>
-
-                <dt class="col-sm-3">Email</dt>
-                <dd class="col-sm-9">{{ employee.email }}</dd>
-
-                <dt class="col-sm-3">Department</dt>
-                <dd class="col-sm-9">{{ employee.department }}</dd>
-
-                <dt class="col-sm-3">Salary</dt>
-                <dd class="col-sm-9">{{ employee.salary }}</dd>
-            </dl>
+                <div class="card hover-card shadow border-0 rounded-3 overflow-hidden">
+                    <!-- Top Blue Bar Decor -->
+                    <div class="bg-primary" style="height: 8px;"></div>
+                    
+                    <div class="card-body p-5 text-center">
+                        <!-- Initials Profile Avatar -->
+                        <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3" 
+                             style="width: 85px; height: 85px; font-size: 2.2rem; font-weight: bold; border: 3px solid #0d6efd;">
+                            {{ employee.name[0] | upper }}
+                        </div>
+                        
+                        <!-- Name & Role -->
+                        <h3 class="fw-bold mb-1 text-dark">{{ employee.name }}</h3>
+                        <p class="text-muted small mb-4">
+                            Role: <span class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-1.5">{{ employee.role }}</span>
+                        </p>
+                        
+                        <hr class="my-4 border-light">
+                        
+                        <!-- Profile Metadata Details -->
+                        <div class="text-start mb-4">
+                            <!-- Email row -->
+                            <div class="d-flex align-items-center mb-3 gap-3">
+                                <span class="fs-4 bg-light px-2.5 py-1.5 rounded">📧</span>
+                                <div>
+                                    <span class="text-muted small d-block">Email Address</span>
+                                    <span class="fw-semibold text-dark">{{ employee.email }}</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Department row -->
+                            <div class="d-flex align-items-center mb-3 gap-3">
+                                <span class="fs-4 bg-light px-2.5 py-1.5 rounded">🏢</span>
+                                <div>
+                                    <span class="text-muted small d-block">Department</span>
+                                    <span class="fw-semibold text-dark">{{ employee.department }}</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Salary row -->
+                            <div class="d-flex align-items-center mb-3 gap-3">
+                                <span class="fs-4 bg-light px-2.5 py-1.5 rounded">💰</span>
+                                <div>
+                                    <span class="text-muted small d-block">Monthly Salary</span>
+                                    <span class="fw-semibold text-dark">${{ "{:,.2f}".format(employee.salary) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Actions -->
+                        <div class="d-flex justify-content-center gap-2 mt-4">
+                            <a href="/employee/list" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm">
+                                ⬅️ Back to List
+                            </a>
+                            {% if session.get('user_role') == 'Admin' %}
+                                <a href="/employee/employeeUpdate/{{ employee.id }}" class="btn btn-warning px-4 py-2 rounded-pill shadow-sm text-dark">
+                                    ✏️ Edit Profile
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             {% else %}
-            <div class="alert alert-warning">Employee not found.</div>
+                <div class="alert alert-danger shadow-sm text-center" role="alert">
+                    ❌ Employee profile not found!
+                </div>
+                <div class="text-center mt-3">
+                    <a href="/employee/list" class="btn btn-primary px-4 rounded-pill">Back to Directory</a>
+                </div>
             {% endif %}
-
-            <a href="/employee/list" class="btn btn-secondary">Back to Employee List</a>
         </div>
     </div>
 </div>

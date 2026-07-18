@@ -30,3 +30,12 @@ h1{
 .custom-footer h6 {
     color: #ffffff !important;
 }
+
+.hover-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.hover-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.175) !important;
+}
